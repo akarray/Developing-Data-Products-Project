@@ -7,9 +7,10 @@
 
 library(shiny)
 library(caret)
-library(ElemStatLearn); data(ozone,package="ElemStatLearn")
-ozone <- ozone[order(ozone$ozone),]
 
+
+data <- getURL("http://statweb.stanford.edu/~tibs/ElemStatLearn/datasets/ozone.data")
+ozone <- read.csv(text = data, sep="\t") 
 modFit <- train(temperature~ .,data=ozone,method="rf",prox=TRUE)
 
 shinyServer(function(input, output) {
